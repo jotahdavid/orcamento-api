@@ -18,6 +18,16 @@ class ProductRepository {
     const products = await response.json();
     return products;
   }
+
+  async findById(id: number): Promise<Product | null> {
+    const response = await fetch(`${MOCKEND_API_URL}/products/${id}`);
+    if (!response.ok) {
+      return null;
+    }
+
+    const product = await response.json();
+    return product;
+  }
 }
 
 export default new ProductRepository();

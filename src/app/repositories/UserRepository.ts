@@ -18,6 +18,16 @@ class UserRepository {
     const users = await response.json();
     return users;
   }
+
+  async findById(id: number): Promise<User | null> {
+    const response = await fetch(`${MOCKEND_API_URL}/users/${id}`);
+    if (!response.ok) {
+      return null;
+    }
+
+    const user = await response.json();
+    return user;
+  }
 }
 
 export default new UserRepository();
