@@ -23,6 +23,8 @@
   "dependencies": {
     "cross-fetch": "^3.1.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "zod": "^3.20.2",
+    "zod-validation-error": "^0.3.1"
   }
 }
