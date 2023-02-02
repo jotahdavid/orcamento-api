@@ -12,5 +12,8 @@
     "ecmaVersion": "latest",
     "sourceType": "module",
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "class-methods-use-this": "off"
   }
 }
