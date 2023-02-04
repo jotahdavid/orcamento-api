@@ -42,7 +42,7 @@ class BudgetController {
       const productPrice = product?.price ?? 0;
       return productPrice + acc;
     }, 0);
-    const productsTotalPrice = productsTotalSum + productsTotalSum * (user.tax / 100);
+    const productsTotalPrice = productsTotalSum * (user.tax / 100);
 
     return res.json({
       total: productsTotalPrice,
