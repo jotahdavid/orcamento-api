@@ -5,15 +5,15 @@ import CalculateBudgetSchema from '@schemas/CalculateBudgetSchema';
 import UserRepository from '@repositories/UserRepository';
 import ProductRepository, { Product } from '@repositories/ProductRepository';
 
-class BudgetController {
-  private calculateProductsTotalPriceWithUserTax(products: Product[], userTax: number) {
-    const productsTotalSum = products.reduce(
-      (acc, product) => acc + product.price,
-      0,
-    );
-    return productsTotalSum * (userTax / 100);
-  }
+function calculateProductsTotalPriceWithUserTax(products: Product[], userTax: number) {
+  const productsTotalSum = products.reduce(
+    (acc, product) => acc + product.price,
+    0,
+  );
+  return productsTotalSum * (userTax / 100);
+}
 
+class BudgetController {
   async calculate(httpRequest: HttpRequest): Promise<HttpResponse> {
     const validation = CalculateBudgetSchema.safeParse(httpRequest.body);
 
@@ -57,7 +57,7 @@ class BudgetController {
       };
     }
 
-    const productsTotalPrice = this.calculateProductsTotalPriceWithUserTax(
+    const productsTotalPrice = calculateProductsTotalPriceWithUserTax(
       products as Product[],
       user.tax,
     );
