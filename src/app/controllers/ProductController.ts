@@ -1,11 +1,13 @@
-import { Request, Response } from 'express';
-
+import { HttpResponse } from '@helpers/ExpressRouteAdapter';
 import ProductRepository from '@repositories/ProductRepository';
 
 class ProductController {
-  async index(req: Request, res: Response) {
+  async index(): Promise<HttpResponse> {
     const products = await ProductRepository.findAll();
-    return res.json(products);
+    return {
+      statusCode: 200,
+      body: products,
+    };
   }
 }
 

@@ -1,11 +1,13 @@
-import { Request, Response } from 'express';
-
+import { HttpResponse } from '@helpers/ExpressRouteAdapter';
 import UserRepository from '@repositories/UserRepository';
 
 class UserController {
-  async index(req: Request, res: Response) {
+  async index(): Promise<HttpResponse> {
     const users = await UserRepository.findAll();
-    return res.json(users);
+    return {
+      statusCode: 200,
+      body: users,
+    };
   }
 }
 
