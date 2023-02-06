@@ -29,7 +29,9 @@ class ExpressRouteAdapter {
       try {
         const httpResponse = await requestHandler(httpRequest);
         return res.status(httpResponse.statusCode).json(httpResponse.body);
-      } catch {
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err);
         return res.sendStatus(500);
       }
     };
