@@ -10,6 +10,6 @@ const router = Router();
 
 router.get('/users', ExpressAdapter.adapt(UserController.index));
 router.get('/products', ExpressAdapter.adapt(ProductController.index));
-router.post('/budget', BudgetController.calculate);
+router.post('/budget', ExpressAdapter.adapt(BudgetController.calculate));
 
 export default router;
