@@ -3,9 +3,17 @@ import formatZodErrorMessage from '@utils/formatZodErrorMessage';
 
 import CalculateBudgetSchema from '@schemas/CalculateBudgetSchema';
 import UserRepository from '@repositories/UserRepository';
-import ProductRepository from '@repositories/ProductRepository';
+import ProductRepository, { Product } from '@repositories/ProductRepository';
 
 class BudgetController {
+  private calculateProductsTotalPriceWithUserTax(products: Product[], userTax: number) {
+    const productsTotalSum = products.reduce(
+      (acc, product) => acc + product.price,
+      0,
+    );
+    return productsTotalSum * (userTax / 100);
+  }
+
   async calculate(httpRequest: HttpRequest): Promise<HttpResponse> {
     const validation = CalculateBudgetSchema.safeParse(httpRequest.body);
 
@@ -49,11 +57,10 @@ class BudgetController {
       };
     }
 
-    const productsTotalSum = products.reduce((acc, product) => {
-      const productPrice = product?.price ?? 0;
-      return productPrice + acc;
-    }, 0);
-    const productsTotalPrice = productsTotalSum * (user.tax / 100);
+    const productsTotalPrice = this.calculateProductsTotalPriceWithUserTax(
+      products as Product[],
+      user.tax,
+    );
 
     return {
       statusCode: 200,
